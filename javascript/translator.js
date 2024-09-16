@@ -111,7 +111,7 @@ input.forEach((word) => {
 
       translated += (braille[word[i]]);
     }
-    console.log(translated, 'less than 6 characters, works with caps too!');
+    console.log(translated);
   } else{
     let count = 0;
     for (let i = 0; i < 6; i++) {
@@ -179,5 +179,5 @@ input.forEach((word) => {
 
       }
     }
-    console.log(translated, 'ACTUALLYYYYY its me, yes, i am the problem its me');
+    console.log(translated);
   }})
