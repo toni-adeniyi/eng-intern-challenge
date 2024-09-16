@@ -95,12 +95,12 @@ let input = process.argv.slice(2);
 let translated = '';
 let keys = Object.keys(braille);
 let keysLetters = Object.keys(brailleLetters);
-input.forEach((word) => {
-  console.log(word.length)
+for(let i = 0; i < input.length; i++){
+  let word = input[i]
   if(word.length < 6){
     // it is english automatically so translate to braille
     if(Number.parseInt(word)){
-      translated = braille['number follows'];
+      translated += braille['number follows'];
     }
     for(let i = 0; i < word.length; i++){
       let capital = /^[A-Z]/;
@@ -108,10 +108,11 @@ input.forEach((word) => {
         translated += braille["capital follows"];
         word = word.replace(word[i], word[i].toLowerCase())
       }
-
       translated += (braille[word[i]]);
     }
-    console.log(translated);
+    if(i !== input.length-1){
+      translated += braille[' ']
+    }
   } else{
     let count = 0;
     for (let i = 0; i < 6; i++) {
@@ -138,7 +139,6 @@ input.forEach((word) => {
           if(value !== '.O.OOO' && value !== '.O...O' && value !== '.....O'){
             if(numeric){
               res = keys.find(key => braille[key] == value)
-              console.log(res)
               if(res === ' '){
                 numeric = false;
               }
@@ -150,9 +150,7 @@ input.forEach((word) => {
                 capitalize = false;
               }
             }
-           
             translated += res;
-            console.log(translated)
           }
           else if(value === '.....O'){
             capitalize = true;
@@ -166,18 +164,20 @@ input.forEach((word) => {
     }
     else{
       if(Number.parseInt(word)){
-        translated = braille['number follows'];
+        translated += braille['number follows'];
       }
       for(let i = 0; i < word.length; i++){
-        console.log(word[i]);
         const capital = /^[A-Z]/;
         if(word[i].match(capital)){
           translated += braille["capital follows"];
           word = word.replace(word[i], word[i].toLowerCase())
         }
         translated += braille[word[i]];
-
+      }
+      if(i !== input.length-1){
+        translated += braille[' ']
       }
     }
-    console.log(translated);
-  }})
+  }
+}
+console.log(translated)
